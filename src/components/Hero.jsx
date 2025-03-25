@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import gsap from "gsap";
 import { TiLocationArrow } from "react-icons/ti";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // Tracks the current video index
   const [hasClicked, setHasClicked] = useState(false); // Indicates if the video has been clicked
@@ -22,26 +24,12 @@ const Hero = () => {
     setHasClicked(true);
     setCurrentIndex(upcomingVideoIndex);
   };
-  
-  //   if (hasClicked) {
-  //     gsap.set("#next-video", { visibility: "visible" });
-  //     gsap.to("#next-video", {
-  //       transformOrigin: "center center",
-  //       scale: 1,
-  //       width: "100%",
-  //       height: "100%",
-  //       duration: 1,
-  //       ease: "power1.inOut",
-  //       onStart: () => nextVideoRef.current.play(),
-  //     });
-  //     gsap.from("#current-video", {
-  //       transformOrigin: "center center",
-  //       scale: 0,
-  //       duration: 1.5,
-  //       ease: "power1.inOut",
-  //     });
-  //   }
-  // });
+
+  useEffect(() => {
+    if (loadedVideos === totalVideos - 1) {
+      setLoading(false);
+    }
+  }, [loadedVideos]);
 
   useGSAP(
     () => {
@@ -88,6 +76,16 @@ const Hero = () => {
   });
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
+      {loading && (
+        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+          {/* https://uiverse.io/G4b413l/tidy-walrus-92 */}
+          <div className="three-body">
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+          </div>
+        </div>
+      )}
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-[#DFDFF0]"
