@@ -5,6 +5,7 @@ const App = () => {
   return (
     <main>
       <Hero />
+      <section className="z-0 min-h-screen bg-blue-500"></section>
     </main>
   );
 };
