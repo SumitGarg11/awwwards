@@ -2,10 +2,19 @@ import React, { useRef } from 'react'
 
 import AnimatedTitle from './AnimatedTitle'
 import gsap from 'gsap';
+import RoundedCorners from './RoundedCorners';
+import Button from './Button';
 const Story = () => {
     const frameRef = useRef('null');
     const handleMouseLeave = () => {
-
+        const element = frameRef.current;
+        gsap.to(element, {
+            duration: 0.3,
+            rotateY: 0,
+            rotateX: 0,
+            transformPerspective: 500,
+            ease: 'power1.inOut'
+        })
     }
     const handleMouseMove = (e) => {
         const { clientX, clientY } = e;
@@ -36,11 +45,18 @@ const Story = () => {
             containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10" />
             <div className='story-img-container'>
                 <div className="story-img-mask">
-                    <div className="story-img-cotent">
+                    <div className="story-img-content">
                         <img src="/img/entrance.webp" ref={frameRef} alt="entrance" onMouseMove={handleMouseMove}  onMouseEnter={handleMouseLeave} onMouseUp={handleMouseLeave} onMouseLeave={handleMouseLeave} className='object-contain' />
                     </div>
                 </div>
+                <RoundedCorners />
             </div>
+            </div>
+            <div className='-mt-80 flex w-full justify-center md:-mt-64 md:me-44 md:justify-end'>
+                <div className='flex h-full w-fit flex-col items-center md:items-start'>
+                    <p className='mt-3 max-w-sm text-center text-violet-50 md:text-start' style={{ fontFamily: "circular-web, sans-serif"}} >Where realms converage, lies Zentry and the boundless pillar. Discover its secrets and shape your fate amidst infinite opportunities.</p>
+                    <Button id="realm-btn" title="discover prologue" containerClass="mt-5"/>
+                </div>
             </div>
         </div>
     </section>
