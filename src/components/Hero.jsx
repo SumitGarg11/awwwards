@@ -31,7 +31,7 @@ const Hero = () => {
                 {/* MiniVideoPlayer */}
                 <video
                   ref={nextVideoRef}
-                  src={getVideoSrc((currentIndex % totalVideos) + 1)}
+                  src={getVideoSrc(upcomingVideoIndex)}
                   loop
                   muted
                   id="current-video"
@@ -40,7 +40,30 @@ const Hero = () => {
                 />
             </div>
           </div>
+          <video
+            ref={nextVideoRef}
+            src={getVideoSrc(currentIndex)}
+            loop
+            muted
+            id="next-video"
+            className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
+            onLoadedData={handleVideoLoad}
+          />
+          <video
+            src={getVideoSrc(
+              currentIndex === totalVideos - 1 ? 1 : currentIndex
+            )}
+            autoPlay
+            loop
+            muted
+            className="absolute left-0 top-0 size-full object-cover object-center"
+            onLoadedData={handleVideoLoad}
+          />
         </div>
+        <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-[#dfdff2]">
+          G<b>A</b>MING
+        </h1>
+        
       </div>
     </div>
   );
