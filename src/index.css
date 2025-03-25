@@ -60,6 +60,9 @@ body {
   .border-hsla {
     @apply border border-white/20;
   }
+  .metagame{
+    font-family: "robert-regular", sans-serif;
+  }
   .hello {
     @apply font-black;
   }
